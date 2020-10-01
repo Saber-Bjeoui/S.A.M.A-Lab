@@ -17,10 +17,7 @@ class OrganizationDetail extends React.Component {
     render(){
         return (
             <div>
-                <li className="list-group-item" >
-                   {this.props.org.name} <br/>
-                   <button type="submit" className="btn btn-primary" onClick={this.delete.bind(this)}>delete</button>
-                </li>
+                
             </div>
         )
     }
