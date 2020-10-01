@@ -28,6 +28,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "@popperjs/core": "^2.5.3",
     "axios": "^0.20.0",
     "body-parser": "^1.17.2",
