@@ -65,55 +65,15 @@ const updateOrgenazation = function (id, name, description, userID) {
   });
 };
 
-/***** crud operations for projects table *****/
-const addProject = function (name, description, organizationID) {
-  return new Promise((resolve, reject) => {
-    connection.query(`insert into projects set ?`),
-      { name, description, organizationID },
-      (e, result) => {
-        if (e) {
-          console.log(e);
-          return reject();
-        }
-        resolve(result);
-      };
-  });
-};
 
-const getproject = function (organizationID) {
+
+/**
+ * get all projects by org id by user id
+ */
+const getOrgProjects = function (orgId, userId) {
   return new Promise((resolve, reject) => {
     connection.query(
-      `select * from organizations where organizationID=${organizationID}`,
-      (e, result) => {
-        if (e) {
-          console.log(e);
-          return reject();
-        }
-        resolve(result);
-      }
-    );
-  });
-};
-
-const deleteProject = function (organizationID, id) {
-  return new Promise((resolve, reject) => {
-    connection.query(
-      `delete from projects where organizationID=${organizationID} and id=${id}`,
-      (e, result) => {
-        if (e) {
-          console.log(e);
-          return reject();
-        }
-        resolve(result);
-      }
-    );
-  });
-};
-
-const updateProject = function (id, name, description, organizationID) {
-  return new Promise((resolve, reject) => {
-    connection.query(
-      `update projects set name=${name},description=${description} where id=${id} and organizationID=${organizationID} `,
+      `select * from projects where organizationID=${orgId} and userID = ${userId}`,
       (e, result) => {
         if (e) {
           console.log(e);
@@ -142,8 +102,6 @@ module.exports = {
   deleteOrganisation,
   updateOrgenazation,
   /* just to clarify */
-  addProject,
-  getproject,
-  deleteProject,
-  updateProject,
+  
+  getOrgProjects
 };

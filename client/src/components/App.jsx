@@ -2,7 +2,7 @@ import React from "react";
 
 import Login from "./authentication/Login.jsx";
 import Signup from "./authentication/Signup.jsx";
-import DashBoard from "./dashboard/DashBoard.jsx";
+import DashBoard from "./DashBoard.jsx";
 
 class App extends React.Component {
   constructor(props) {
@@ -24,25 +24,30 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.redirected === null) {
-      return (
-        <div>
-          <Signup func={this.takeusername} />
-        </div>
-      );
-    } else if (this.state.redirected === "/login")
-      return (
-        <div>
-          <Login func={this.takeusername} />
-        </div>
-      );
-    else if (this.state.redirected === "/home") {
-      return (
-        <div>
-          <DashBoard /* username={this.state.username} */ />
-        </div>
-      );
-    }
+    return (
+      <div>
+        <DashBoard /* username={this.state.username} */ />
+      </div>
+    );
+    // if (this.state.redirected === null) {
+    //   return (
+    //     <div>
+    //       <Signup func={this.takeusername} />
+    //     </div>
+    //   );
+    // } else if (this.state.redirected === "/login")
+    //   return (
+    //     <div>
+    //       <Login func={this.takeusername} />
+    //     </div>
+    //   );
+    // else if (this.state.redirected === "/home") {
+    //   return (
+    //     <div>
+    //       <DashBoard /* username={this.state.username} */ />
+    //     </div>
+    //   );
+    // }
   }
 }
 
