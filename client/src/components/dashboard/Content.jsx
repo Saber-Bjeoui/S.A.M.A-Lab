@@ -4,7 +4,7 @@ import OrganizationsList from "../organizations/OrganizationsList.jsx";
 import AddOrganization from "../organizations/AddOrganization.jsx";
 import ProjectsList from "../projects/ProjectsList.jsx";
 import AddProject from "../projects/AddProject.jsx";
-import ProjectsDetail from "../projects/PorjectDetail.jsx";
+import IssuesList from "../projects/IssuesList.jsx";
 import Home from "./Home.jsx";
 import OrganizationDetail from "../organizations/OrganizationDetail.jsx";
 import Inbox from "./mailbox/Inbox.jsx";
@@ -32,7 +32,7 @@ var Content = () => (
       <Route path="/projects/new">
         <AddProject />
       </Route>
-      <Route exact path="/projects/:id" component={ProjectsDetail} />
+      <Route exact path="/projects/:id" component={IssuesList} />
       <Route path="/messages/inbox">
         <Inbox />
       </Route>

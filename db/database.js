@@ -85,6 +85,21 @@ const getOrgProjects = function (orgId, userId) {
   });
 };
 
+const getMessages = function (userID) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `select * from messages where receiverID=${userID}`,
+      (e, result) => {
+        if (e) {
+          console.log(e);
+          return reject();
+        }
+        resolve(result);
+      }
+    );
+  });
+};
+
 /***** displaying the connection to the database *****/
 connection.connect((err) => {
   if (err) {
@@ -97,6 +112,7 @@ connection.connect((err) => {
 
 module.exports = {
   connection,
+  getMessages,
   createOrganization,
   getOrganization,
   deleteOrganisation,

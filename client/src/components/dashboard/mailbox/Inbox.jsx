@@ -24,8 +24,6 @@ class Inbox extends React.Component {
         {this.state.data.map((ele, i) => {
           return <Messages key={i} data={ele} />;
         })}
-
-        <h1>Inbox</h1>
       </div>
     );
   }

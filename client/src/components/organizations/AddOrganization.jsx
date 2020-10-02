@@ -7,6 +7,7 @@ class AddOrganization extends React.Component {
       userID : 1,
       name_organization: "",
       description: "",
+      redirect: null,
     };
   }
 
@@ -29,12 +30,18 @@ class AddOrganization extends React.Component {
         name: this.state.name_organization,
         description: this.state.description
       })
+      .then((result) => {
+        this.setState({ redirect: "/organizations" });
+      })
       .catch(function (error) {
         console.log(error);
       });
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
     return (
       <div>
         <h1 className="h3 mb-4 text-gray-800">Add new Organization/Team</h1>

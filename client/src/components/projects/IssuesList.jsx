@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-
+import { withRouter } from "react-router";
 
 class IssuesList extends React.Component {
   constructor(props) {
@@ -21,7 +21,8 @@ class IssuesList extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   getIssues() {
-    axios.get(`/get_Issue/${1}`).then((res) => {
+    let id  = this.props.match.params.id;
+    axios.get(`/get_Issue/${id}`).then((res) => {
       this.setState({
         issues: res.data,
       });
@@ -41,7 +42,8 @@ class IssuesList extends React.Component {
   }
 
   addIssue() {
-    axios.post("/create_issue", this.state).then((res) => {
+    let id  = this.props.match.params.id;
+    axios.post(`/create_issue/${id}`, this.state).then((res) => {
       console.log(res);
     });
   }
@@ -108,4 +110,4 @@ class IssuesList extends React.Component {
   }
 }
 
-export default Issues;
+export default IssuesList;

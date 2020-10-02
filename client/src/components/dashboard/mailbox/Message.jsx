@@ -21,7 +21,7 @@ class Messages extends React.Component {
                         <a href="read-mail.html"> {this.props.data.subject} </a>
                       </td>
                       <td className="mailbox-subject">
-                       { this.props.data.text }
+                       { this.props.data.message_text }
                       </td>
                       <td className="mailbox-attachment" />
                      

@@ -7,6 +7,10 @@ const projectsRouter = require("../routes/projects.js");
 
 const db = require("../db/database.js");
 
+const ise = require("../db/issues.js");
+const feature = require("../db/feature.js");
+const comments = require("../db/comments.js");
+
 const port = 3000;
 const app = express();
 
@@ -73,6 +77,130 @@ app.get("/messages/inbox/user/:userID", async (req, res) => {
   try {
     const messages = await db.getMessages(req.params.userID);
     res.send(messages);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+/***************************Issues************************************ */
+/********************Create *****/
+app.post("/create_issue", async (req, res) => {
+  try {
+    console.log(req.body);
+    await ise.createIssue(
+      req.body.title,
+      req.body.description,
+      req.body.state,
+      req.body.postedID,
+      req.body.projectID
+    );
+
+    res.send("cool ");
+  } catch (e) {
+    console.log(e);
+  }
+});
+/*************************Done************************* */
+
+/****************************Get All************************** */
+app.get("/get_Issue/:projectID", async (req, res) => {
+  try {
+    const data = await ise.getAllIssue(req.params.projectID);
+    res.send(data);
+  } catch (e) {
+    console.log(e);
+  }
+});
+/********************************Done*********************************** */
+
+/****************************Delete ************************** */
+
+app.post("/delete_issue/:id", async (req, res) => {
+  try {
+    const data = await ise.deleteIssue(req.params.id);
+    res.send(data);
+    console.log("aaa", req.params.id);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+/********************************Done*********************************** */
+
+/****************************Update ************************** */
+
+app.put("/update_Issue/:id", async (req, res) => {
+  try {
+    const data = await ise.updateIssue([req.params.id]);
+    res.send(data);
+  } catch (err) {
+    console.log(err);
+  }
+});
+/***************************Feacherssssssss************************************ */
+/********************Create *****/
+app.post("/create_feature", async (req, res) => {
+  try {
+    console.log(req.body);
+    res.send(
+      await feature.createFeature(
+        req.body.title,
+        req.body.description,
+        req.body.state,
+        req.body.postedID,
+        req.body.projectID
+      )
+    );
+  } catch (e) {
+    console.log(e);
+  }
+});
+/*************************Done************************* */
+
+/****************************Get All************************** */
+app.get("/get_feacher/:projectID", async (req, res) => {
+  try {
+    await feature.getAllFeature(req.params.projectID);
+    res.send("cool");
+  } catch (e) {
+    console.log(e);
+  }
+});
+/********************************Done*********************************** */
+
+/****************************Delete ************************** */
+
+app.post("/delete_feacher/:id", async (req, res) => {
+  try {
+    res.send(await feature.deleteFeature(req.params.id));
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+/********************************Done*********************************** */
+
+/****************************Update ************************** */
+
+app.put("/update_feacher/:id", async (req, res) => {
+  try {
+    res.send(await feature.updateFeature([req.params.id]));
+  } catch (e) {
+    console.log(e);
+  }
+});
+/********************************Done with only modif title*********************************** */
+/************************Create Comments ***************************** */
+app.post("/createComment", async (req, res) => {
+  try {
+    console.log(req.body);
+    res.send(
+      await comments.createComment(
+        req.body.text,
+        req.body.userID,
+        req.body.issueID
+      )
+    );
   } catch (e) {
     console.log(e);
   }
