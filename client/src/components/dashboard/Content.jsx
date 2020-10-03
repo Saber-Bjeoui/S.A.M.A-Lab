@@ -4,13 +4,10 @@ import OrganizationsList from "../organizations/OrganizationsList.jsx";
 import AddOrganization from "../organizations/AddOrganization.jsx";
 import ProjectsList from "../projects/ProjectsList.jsx";
 import AddProject from "../projects/AddProject.jsx";
-import IssuesList from "../projects/IssuesList.jsx";
 import Home from "./Home.jsx";
-import Test from "./Test.jsx";
 import OrganizationDetail from "../organizations/OrganizationDetail.jsx";
 import Inbox from "./mailbox/Inbox.jsx";
 import ProjectDetail from "../projects/ProjectDetail.jsx";
-
 
 var Content = () => (
   <div>
@@ -22,7 +19,7 @@ var Content = () => (
         <OrganizationsList />
       </Route>
       <Route
-      exact
+        exact
         path="/organizations/:orgId/user/:userID/projects/all"
         component={ProjectsList}
       />
@@ -32,7 +29,11 @@ var Content = () => (
       <Route path="/projects/new">
         <AddProject />
       </Route>
-      <Route exact path="/projects/:id" component={ProjectDetail} />
+      <Route
+        exact
+        path="/projects/:id"
+        component={ProjectDetail}
+      />
       <Route path="/messages/inbox">
         <Inbox />
       </Route>

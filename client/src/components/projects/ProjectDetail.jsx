@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { BrowserRouter as Router } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
 
 class ProjectDetail extends React.Component {
   constructor(props) {
