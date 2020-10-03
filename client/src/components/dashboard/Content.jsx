@@ -5,10 +5,9 @@ import AddOrganization from "../organizations/AddOrganization.jsx";
 import ProjectsList from "../projects/ProjectsList.jsx";
 import AddProject from "../projects/AddProject.jsx";
 import Home from "./Home.jsx";
-import OrganizationDetail from "../organizations/OrganizationDetail.jsx";
 import Inbox from "./mailbox/Inbox.jsx";
 import ProjectDetail from "../projects/ProjectDetail.jsx";
-import NewMessage from "../dashboard/mailbox/NewMessage.jsx"
+import NewMessage from "../dashboard/mailbox/NewMessage.jsx";
 var Content = () => (
   <div>
     <Switch>

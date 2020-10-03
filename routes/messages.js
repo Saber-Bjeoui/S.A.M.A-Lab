@@ -5,7 +5,17 @@ const messages = require("../db/messages.js");
  * Get all received messages by user id
  */
 messagesRouter.get("/messages/inbox/user/:userID", async (req, res) => {
-  console.log("req", req.params);
+
+  try {
+    const receivedMessages = await messages.getMessages(req.params.userID);
+    res.send(receivedMessages);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+messagesRouter.get("/messages/sent/user/:userID", async (req, res) => {
+ 
   try {
     const receivedMessages = await messages.getMessages(req.params.userID);
     res.send(receivedMessages);
