@@ -8,7 +8,7 @@ import Home from "./Home.jsx";
 import OrganizationDetail from "../organizations/OrganizationDetail.jsx";
 import Inbox from "./mailbox/Inbox.jsx";
 import ProjectDetail from "../projects/ProjectDetail.jsx";
-
+import NewMessage from "../dashboard/mailbox/NewMessage.jsx"
 var Content = () => (
   <div>
     <Switch>
@@ -36,6 +36,10 @@ var Content = () => (
       />
       <Route path="/messages/inbox">
         <Inbox />
+      </Route>
+
+      <Route path="/messages/new/:userID">
+        <NewMessage />
       </Route>
     </Switch>
   </div>

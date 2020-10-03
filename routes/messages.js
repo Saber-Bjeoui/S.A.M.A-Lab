@@ -1,6 +1,5 @@
 const messagesRouter = require("express").Router();
-const db = require("../db/database.js");
-
+const messages = require("../db/messages.js");
 
 /**
  * Get all received messages by user id
@@ -8,14 +7,19 @@ const db = require("../db/database.js");
 messagesRouter.get("/messages/inbox/user/:userID", async (req, res) => {
   console.log("req", req.params);
   try {
-    const messages = await db.getMessages(req.params.userID);
-    res.send(messages);
+    const receivedMessages = await messages.getMessages(req.params.userID);
+    res.send(receivedMessages);
   } catch (e) {
     console.log(e);
   }
 });
 
-
-
+messagesRouter.post("/message/add",async (req,res)=>{
+  console.log("req", req.body);
+    try{
+      const result = await messages.saveMessage(req.body.message_text,req.body.subject,req.body.receiverID,req.body.senderID);
+      res.send(result);
+    }catch(e){console.log(e)}
+  })
 
 module.exports = messagesRouter;

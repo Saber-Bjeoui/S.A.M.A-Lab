@@ -1,8 +1,12 @@
 import React from "react";
-
+import { Link } from "react-router-dom"
 class Messages extends React.Component {
     constructor(props){
         super(props);
+
+        this.state = {
+          userID: 1,
+        }
     }
     render() {
         console.log(this.props.data)
@@ -18,7 +22,7 @@ class Messages extends React.Component {
                   <tbody>
                     <tr>
                       <td className="mailbox-name">
-                        <a href="read-mail.html"> {this.props.data.subject} </a>
+                        <Link to={`/message/${this.state.userID}`}> {this.props.data.subject} </Link>
                       </td>
                       <td className="mailbox-subject">
                        { this.props.data.message_text }

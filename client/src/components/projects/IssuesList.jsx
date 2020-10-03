@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { withRouter } from "react-router";
-
 class IssuesList extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +10,7 @@ class IssuesList extends React.Component {
         description: "",
         posterID: "1",
         state: "open",
-        projectID: this.props.match.params.id,
+        projectID: this.props.projectID,
       },
 
       issues: [],
@@ -24,7 +22,8 @@ class IssuesList extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   getIssues() {
-    let id = this.props.match.params.id;
+    let id = this.props.projectID;
+    console.log(id)
     axios.get(`/get_Issue/${id}`).then((res) => {
       this.setState({
         issues: res.data,
@@ -64,7 +63,6 @@ class IssuesList extends React.Component {
       this.getIssues();
     });
   }
-
   render() {
     let issues = this.state.issues;
     return (
@@ -85,16 +83,14 @@ class IssuesList extends React.Component {
           </form>
         </div>
         <div>
-          <h2>project issues</h2>
-
-          <ul class="list-group">
+          <ul className="list-group">
             {issues.map((issue) => (
               <li
                 key={issue.id}
-                class="list-group-item d-flex justify-content-between align-items-center"
+                className="list-group-item d-flex justify-content-between align-items-center"
               >
                 {issue.title}
-                <span class="badge badge-success badge-pill">
+                <span className="badge badge-success badge-pill">
                   {issue.state}
                 </span>
               </li>
@@ -105,5 +101,4 @@ class IssuesList extends React.Component {
     );
   }
 }
-
 export default IssuesList;

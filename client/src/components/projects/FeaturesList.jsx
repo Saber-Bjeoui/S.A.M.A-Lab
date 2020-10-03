@@ -4,11 +4,13 @@ class FeaturesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      description: "",
-      state: "new",
-      postedID: "1",
-      projectID: 1,
+      feature: {
+        title: "",
+        description: "",
+        state: "planned",
+        posterID: "1",
+        projectID: this.props.projectID,
+      },
       features: [],
     };
     this.getFeatures = this.getFeatures.bind(this);
@@ -18,11 +20,13 @@ class FeaturesList extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   getFeatures() {
-    axios.get(`/get_features/${1}`).then((res) => {
-      this.setState({
-        features: res.data,
+    axios
+      .get(`/project/${this.state.feature.projectID}/features`)
+      .then((res) => {
+        this.setState({
+          features: res.data,
+        });
       });
-    });
   }
   componentDidMount() {
     this.getFeatures();
@@ -30,12 +34,16 @@ class FeaturesList extends React.Component {
   handleChange(event) {
     event.preventDefault();
     const { name, value } = event.target;
+    this.state.feature[name] = value;
     this.setState({
-      [name]: value,
+      feature: this.state.feature,
     });
   }
-  addFeature() {
-    axios.post("/create_feature", this.state).then((res) => {
+  addFeature(e) {
+    e.preventDefault();
+    console.log(this.state.feature);
+    axios.post("/features/add", this.state.feature).then((res) => {
+      this.getFeatures();
       console.log(res);
     });
   }
@@ -54,7 +62,7 @@ class FeaturesList extends React.Component {
     return (
       <div>
         <div>
-          <form onSubmit={this.addFeature}>
+          <form>
             <h2>add features</h2>
             <label>title</label>
             <input type="text" name="title" onChange={this.handleChange} />
@@ -64,31 +72,21 @@ class FeaturesList extends React.Component {
               name="description"
               onChange={this.handleChange}
             />
-            <input type="submit" />
+            <input type="submit" onClick={this.addFeature} />
           </form>
         </div>
+
         <div>
-          <h2>project features</h2>
-          <ul>
-            {features.map((element, key) => (
-              <li key={key}>
-                <h2>{element.title}</h2>
-                <h3>{element.postedID}</h3>
-                <h3>{element.projectID}</h3>
-                <span>{element.description}</span>
-                <h3>{element.state}</h3>
-                <button
-                  onClick={() => this.update(element.id)}
-                  name={element.projectID}
-                >
-                  update
-                </button>
-                <button
-                  onClick={() => this.delete(element.id)}
-                  name={this.state.id}
-                >
-                  delete
-                </button>
+          <ul className="list-group">
+            {features.map((feature) => (
+              <li
+                key={feature.id}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {feature.title}
+                <span className="badge badge-success badge-pill">
+                  {feature.state}
+                </span>
               </li>
             ))}
           </ul>

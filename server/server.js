@@ -5,12 +5,12 @@ const signup = require("../routes/signup.js");
 const login = require("../routes/login");
 const projectsRouter = require("../routes/projects.js");
 const messagesRouter = require("../routes/messages.js")
-
+const usersRouter = require('../routes/users.js')
 
 const db = require("../db/database.js");
 
 const ise = require("../db/issues.js");
-const feature = require("../db/feature.js");
+const feature = require("../db/features.js");
 const comments = require("../db/comments.js");
 const { send } = require("process");
 
@@ -22,6 +22,8 @@ app.use("/", signup);
 app.use("/", login);
 app.use("/", projectsRouter);
 app.use("/", messagesRouter);
+app.use("/", usersRouter);
+
 
 app.use(express.static(__dirname + "/../client/dist"));
 
@@ -130,8 +132,10 @@ app.put("/update_Issue/:id", async (req, res) => {
   }
 });
 /***************************Feacherssssssss************************************ */
-/********************Create *****/
-app.post("/create_feature", async (req, res) => {
+/**
+ * Add new feature
+*/
+app.post("/features/add", async (req, res) => {
   try {
     console.log(req.body);
     res.send(
@@ -139,7 +143,7 @@ app.post("/create_feature", async (req, res) => {
         req.body.title,
         req.body.description,
         req.body.state,
-        req.body.postedID,
+        req.body.posterID,
         req.body.projectID
       )
     );
@@ -149,11 +153,13 @@ app.post("/create_feature", async (req, res) => {
 });
 /*************************Done************************* */
 
-/****************************Get All************************** */
-app.get("/get_feacher/:projectID", async (req, res) => {
+/**
+ * Get all features by project id
+ */
+app.get("/project/:projectID/features", async (req, res) => {
   try {
-    await feature.getAllFeature(req.params.projectID);
-    res.send("cool");
+    const projectFeatures = await feature.getAllFeatures(req.params.projectID);
+    res.send(projectFeatures);
   } catch (e) {
     console.log(e);
   }
