@@ -31,8 +31,13 @@ class AddMessage extends React.Component {
       type: "get",
       contentType: "aplication/json",
     }).done((data) => {
+      this.state.users = data.filter((user) => {
+        return user.id !== this.state.message.senderID
+      })
+      this.state.message.receiverID = this.state.users[0].id
       this.setState({
-        users: data,
+        users: this.state.users,
+       
       });
     });
   }

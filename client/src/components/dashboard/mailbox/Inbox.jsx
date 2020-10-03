@@ -23,7 +23,7 @@ class Inbox extends React.Component {
     return (
       <div>
         <Link to={`/messages/new/${this.state.userID}`}>
-          <button type="button" class="btn btn-success">
+          <button type="button" className="btn btn-success">
             New Message
           </button>
         </Link>
