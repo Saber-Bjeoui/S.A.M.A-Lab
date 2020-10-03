@@ -86,26 +86,17 @@ class IssuesList extends React.Component {
         </div>
         <div>
           <h2>project issues</h2>
-          <ul>
-            {issues.map((element, key) => (
-              <li key={key}>
-                <h2>{element.title}</h2>
-                <h3>{element.postedID}</h3>
-                <h3>{element.projectID}</h3>
-                <span>{element.description}</span>
-                <h3>{element.state}</h3>
-                <button
-                  onClick={() => this.update(element.id)}
-                  name={element.projectID}
-                >
-                  update
-                </button>
-                <button
-                  onClick={() => this.delete(element.id)}
-                  name={this.state.id}
-                >
-                  delete
-                </button>
+
+          <ul class="list-group">
+            {issues.map((issue) => (
+              <li
+                key={issue.id}
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {issue.title}
+                <span class="badge badge-success badge-pill">
+                  {issue.state}
+                </span>
               </li>
             ))}
           </ul>

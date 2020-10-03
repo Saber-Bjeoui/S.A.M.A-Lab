@@ -9,6 +9,8 @@ import Home from "./Home.jsx";
 import Test from "./Test.jsx";
 import OrganizationDetail from "../organizations/OrganizationDetail.jsx";
 import Inbox from "./mailbox/Inbox.jsx";
+import ProjectDetail from "../projects/ProjectDetail.jsx";
+
 
 var Content = () => (
   <div>
@@ -27,19 +29,12 @@ var Content = () => (
       <Route path="/organizations/new">
         <AddOrganization />
       </Route>
-      <Route exact path="/projects">
-        <ProjectsList />
-      </Route>
       <Route path="/projects/new">
         <AddProject />
       </Route>
-      <Route exact path="/projects/:id" component={IssuesList} />
+      <Route exact path="/projects/:id" component={ProjectDetail} />
       <Route path="/messages/inbox">
         <Inbox />
-      </Route>
-
-      <Route path="/test">
-        <Test />
       </Route>
     </Switch>
   </div>
