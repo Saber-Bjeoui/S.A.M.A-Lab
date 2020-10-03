@@ -6,6 +6,7 @@ import ProjectsList from "../projects/ProjectsList.jsx";
 import AddProject from "../projects/AddProject.jsx";
 import IssuesList from "../projects/IssuesList.jsx";
 import Home from "./Home.jsx";
+import Test from "./Test.jsx";
 import OrganizationDetail from "../organizations/OrganizationDetail.jsx";
 import Inbox from "./mailbox/Inbox.jsx";
 
@@ -20,7 +21,7 @@ var Content = () => (
       </Route>
       <Route
       exact
-        path="/organizations/:orgId/projects/:userId"
+        path="/organizations/:orgId/user/:userID/projects/all"
         component={ProjectsList}
       />
       <Route path="/organizations/new">
@@ -35,6 +36,10 @@ var Content = () => (
       <Route exact path="/projects/:id" component={IssuesList} />
       <Route path="/messages/inbox">
         <Inbox />
+      </Route>
+
+      <Route path="/test">
+        <Test />
       </Route>
     </Switch>
   </div>

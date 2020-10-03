@@ -20,11 +20,24 @@ projectsRouter.post("/projects/add", async (req, res) => {
 
 
 /**
- * Add all projects by user id
+ * Get all projects by user id
  */
 projectsRouter.get("/projects/all/:userID", async (req, res) => {
   try {
     const allProjects = await projects.getProjectsByUserID(req.params.userID);
+    res.send(allProjects);
+  } catch (err) {
+    res.status(400).send("Something wrong happend!!");
+    console.log(err);
+  }
+});
+
+/**
+ * Get all projects by user id and org id
+ */
+projectsRouter.get("/projects/all/:userID/:orgID", async (req, res) => {
+  try {
+    const allProjects = await projects.getProjectsByOrgIdAndUserID(req.params.userID, req.params.orgID);
     res.send(allProjects);
   } catch (err) {
     res.status(400).send("Something wrong happend!!");

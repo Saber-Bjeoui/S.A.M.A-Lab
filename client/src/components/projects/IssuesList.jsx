@@ -7,11 +7,14 @@ class IssuesList extends React.Component {
     super(props);
 
     this.state = {
-      title: "",
-      description: "",
-      state: "new",
-      postedID: "1",
-      projectID: 1,
+      issue: {
+        title: "",
+        description: "",
+        posterID: "1",
+        state: "open",
+        projectID: this.props.match.params.id,
+      },
+
       issues: [],
     };
     this.getIssues = this.getIssues.bind(this);
@@ -21,7 +24,7 @@ class IssuesList extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   getIssues() {
-    let id  = this.props.match.params.id;
+    let id = this.props.match.params.id;
     axios.get(`/get_Issue/${id}`).then((res) => {
       this.setState({
         issues: res.data,
@@ -36,15 +39,17 @@ class IssuesList extends React.Component {
   handleChange(event) {
     event.preventDefault();
     const { name, value } = event.target;
+    this.state.issue[name] = value;
     this.setState({
-      [name]: value,
+      issue: this.state.issue,
     });
   }
 
-  addIssue() {
-    let id  = this.props.match.params.id;
-    axios.post(`/create_issue/${id}`, this.state).then((res) => {
-      console.log(res);
+  addIssue(e) {
+    e.preventDefault();
+
+    axios.post("/issues/add", this.state.issue).then((res) => {
+      this.getIssues();
     });
   }
 
@@ -65,7 +70,7 @@ class IssuesList extends React.Component {
     return (
       <div>
         <div>
-          <form onSubmit={this.addIssue}>
+          <form>
             <h2>add issues</h2>
             <label>title</label>
             <input type="text" name="title" onChange={this.handleChange} />
@@ -76,7 +81,7 @@ class IssuesList extends React.Component {
               name="description"
               onChange={this.handleChange}
             />
-            <input type="submit" />
+            <input type="submit" onClick={this.addIssue} />
           </form>
         </div>
         <div>

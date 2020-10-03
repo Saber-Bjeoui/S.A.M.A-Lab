@@ -16,17 +16,11 @@ const query = (str) => {
     });
   });
 };
-const createIssue = function (title, description, state, posterID, projectID) {
+const createIssue = function (options) {
   return new Promise((resolve, reject) => {
     connection.query(
       `insert into issues set ?`,
-      {
-        title,
-        description,
-        state,
-        posterID,
-        projectID,
-      },
+      options,
       (e, result) => {
         if (e) {
           console.log(e);

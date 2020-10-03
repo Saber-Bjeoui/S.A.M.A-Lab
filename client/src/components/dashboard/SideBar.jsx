@@ -7,15 +7,15 @@ var SideBar = () => (
     id="accordionSidebar"
   >
     {/* Sidebar - Brand */}
-    <a
+    <Link
       className="sidebar-brand d-flex align-items-center justify-content-center"
-      href="index.html"
+      to="/"
     >
       <div className="sidebar-brand-icon rotate-n-15">
         <i className="fas fa-laugh-wink"></i>
       </div>
       <div className="sidebar-brand-text mx-3">SAMA-LAB</div>
-    </a>
+    </Link>
 
     {/* Divider */}
     <hr className="sidebar-divider my-0" />

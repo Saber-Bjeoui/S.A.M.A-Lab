@@ -62,6 +62,28 @@ exports.getProjectsByUserID = function (userID) {
   });
 };
 
+
+
+/**
+ * Get all projects by user id and org id
+ * @param {*} userID
+ */
+exports.getProjectsByOrgIdAndUserID = function (userID, orgID) {
+  return new Promise((resolve, reject) => {
+    connection.query(
+      `select * from projects where userID=${userID} and organizationID=${orgID}`,
+      (e, result) => {
+        if (e) {
+          console.log(e);
+          return reject(e);
+        }
+        resolve(result);
+      }
+    );
+  });
+};
+
+
 /**
  * Get all project by organization id and user id
  * @param {*} userID 

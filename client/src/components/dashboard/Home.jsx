@@ -1,10 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import OrganizationsList from "./../organizations/OrganizationsList.jsx";
+import $ from 'jquery';
 class Home extends React.Component {
   constructor() {
     super();
   }
 
+  // getAllOrganizationsByUserId(){
+  //   $.ajax({
+  //     url: `/organizations/all/users/${userID}`,
+  //     type: 'get',
+  //     contentType: 'application/json'
+  //   })
+  // }
   render() {
     return (
       <div>

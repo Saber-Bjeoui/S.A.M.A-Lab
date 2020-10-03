@@ -1,15 +1,18 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-
-var signup = require("../routes/signup.js");
-var login = require("../routes/login");
+const express = require("express");
+const bodyParser = require("body-parser");
+const path = require('path');
+const signup = require("../routes/signup.js");
+const login = require("../routes/login");
 const projectsRouter = require("../routes/projects.js");
+const messagesRouter = require("../routes/messages.js")
+
 
 const db = require("../db/database.js");
 
 const ise = require("../db/issues.js");
 const feature = require("../db/feature.js");
 const comments = require("../db/comments.js");
+const { send } = require("process");
 
 const port = 3000;
 const app = express();
@@ -18,6 +21,7 @@ app.use(bodyParser.json());
 app.use("/", signup);
 app.use("/", login);
 app.use("/", projectsRouter);
+app.use("/", messagesRouter);
 
 app.use(express.static(__dirname + "/../client/dist"));
 
@@ -72,40 +76,28 @@ app.post("/deleteOrg", async (req, res) => {
   }
 });
 
-app.get("/messages/inbox/user/:userID", async (req, res) => {
-  console.log("req", req.params);
-  try {
-    const messages = await db.getMessages(req.params.userID);
-    res.send(messages);
-  } catch (e) {
-    console.log(e);
-  }
-});
+
 
 /***************************Issues************************************ */
 /********************Create *****/
-app.post("/create_issue", async (req, res) => {
+app.post("/issues/add", async (req, res) => {
   try {
     console.log(req.body);
-    await ise.createIssue(
-      req.body.title,
-      req.body.description,
-      req.body.state,
-      req.body.postedID,
-      req.body.projectID
-    );
+    
+    const result = await ise.createIssue(req.body);
+    res.send(result);
 
-    res.send("cool ");
   } catch (e) {
     console.log(e);
+    res.status(400).send('Error');
   }
 });
 /*************************Done************************* */
 
 /****************************Get All************************** */
-app.get("/get_Issue/:projectID", async (req, res) => {
+app.get("/get_Issue/:projectId", async (req, res) => {
   try {
-    const data = await ise.getAllIssue(req.params.projectID);
+    const data = await ise.getAllIssue(req.params.projectId);
     res.send(data);
   } catch (e) {
     console.log(e);
@@ -206,6 +198,10 @@ app.post("/createComment", async (req, res) => {
   }
 });
 
+// Handles any requests that don't match the ones above
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'));
+});
 app.listen(process.env.PORT || port, function () {
   console.log(`listening on port ${port}!`);
 });

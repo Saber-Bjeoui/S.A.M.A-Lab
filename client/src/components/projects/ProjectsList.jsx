@@ -10,11 +10,15 @@ class ProjectsList extends React.Component {
     };
   }
 
-  getAllProjects() {
-    //let userId = this.props.match.params.userId;
+  getAllProjectsByUserID() {
     var userID = this.state.userID;
+    var url = `/projects/all/${userID}`
+    if(this.props.match.params.orgId){
+      url = `/projects/all/${userID}/${this.props.match.params.orgId}`
+    }
+    
     $.ajax({
-      url: `/projects/all/${userID}`,
+      url: url,
       type: "get",
       contentType: "application/json",
     })
@@ -27,11 +31,14 @@ class ProjectsList extends React.Component {
       .catch((err) => console.log(err));
   }
 
+
   componentDidMount() {
-    this.getAllProjects();
+    
+      this.getAllProjectsByUserID();
+    
   }
   render() {
-    console.log("rendering projects list");
+    console.log("rendering projects list", this.state.projects);
     return (
       <div>
         <h1 className="h3 mb-4 text-gray-800">Projects List:</h1>

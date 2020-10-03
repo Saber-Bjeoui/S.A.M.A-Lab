@@ -36,7 +36,7 @@ class OrganizationsList extends React.Component {
               {this.state.organizations.map((org) => {
                 return (
                   <li key={org.id} className="list-group-item">
-                    <Link to={`/organizations/${org.id}/projects/${this.state.userID}`}>{org.name}</Link>
+                    <Link to={`/organizations/${org.id}/user/${this.state.userID}/projects/all`}>{org.name}</Link>
                   </li>
                 );
               }) || (
