@@ -1,4 +1,4 @@
 node_modules
-client/dist/bundle.js
 db/config.js
 .vscode
+client/dist/bundle.js
