@@ -20,7 +20,7 @@ const createFeature = function (
   title,
   description,
   state,
-  postedID,
+  posterID,
   projectID
 ) {
   return new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ const createFeature = function (
         title,
         description,
         state,
-        postedID,
+        posterID,
         projectID,
       },
       (e, result) => {

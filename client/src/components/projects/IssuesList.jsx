@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { withRouter } from "react-router";
-
 class IssuesList extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +10,7 @@ class IssuesList extends React.Component {
         description: "",
         posterID: "1",
         state: "open",
-        projectID: this.props.match.params.id,
+        projectID: this.props.projectID,
       },
 
       issues: [],
@@ -24,7 +22,8 @@ class IssuesList extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   getIssues() {
-    let id = this.props.match.params.id;
+    let id = this.props.projectID;
+    console.log(id)
     axios.get(`/get_Issue/${id}`).then((res) => {
       this.setState({
         issues: res.data,
@@ -64,7 +63,6 @@ class IssuesList extends React.Component {
       this.getIssues();
     });
   }
-
   render() {
     let issues = this.state.issues;
     return (
@@ -85,27 +83,16 @@ class IssuesList extends React.Component {
           </form>
         </div>
         <div>
-          <h2>project issues</h2>
-          <ul>
-            {issues.map((element, key) => (
-              <li key={key}>
-                <h2>{element.title}</h2>
-                <h3>{element.postedID}</h3>
-                <h3>{element.projectID}</h3>
-                <span>{element.description}</span>
-                <h3>{element.state}</h3>
-                <button
-                  onClick={() => this.update(element.id)}
-                  name={element.projectID}
-                >
-                  update
-                </button>
-                <button
-                  onClick={() => this.delete(element.id)}
-                  name={this.state.id}
-                >
-                  delete
-                </button>
+          <ul className="list-group">
+            {issues.map((issue) => (
+              <li
+                key={issue.id}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                {issue.title}
+                <span className="badge badge-success badge-pill">
+                  {issue.state}
+                </span>
               </li>
             ))}
           </ul>
@@ -114,5 +101,4 @@ class IssuesList extends React.Component {
     );
   }
 }
-
 export default IssuesList;

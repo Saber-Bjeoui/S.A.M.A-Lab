@@ -13,7 +13,7 @@ class ProjectsList extends React.Component {
   getAllProjectsByUserID() {
     var userID = this.state.userID;
     var url = `/projects/all/${userID}`
-    if(this.props.match.params.orgId){
+    if(this.props.match){
       url = `/projects/all/${userID}/${this.props.match.params.orgId}`
     }
     
